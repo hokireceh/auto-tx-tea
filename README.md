@@ -15,8 +15,8 @@ Script Node.js untuk mengirim ETH ke daftar alamat secara otomatis dengan delay 
 
 1. **Clone repo ini:**
    ```bash
-   git clone https://github.com/hokireceh/tea.git
-   cd tea
+   git clone https://github.com/hokireceh/auto-tx-tea.git
+   cd auto-tx-tea
    ```
 
 2. **Install dependencies:**
