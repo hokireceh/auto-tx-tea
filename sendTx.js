@@ -14,7 +14,7 @@ const MAX_RETRY = 3;
 const WAIT_TIMEOUT = 90_000;
 
 if (!RPC_URL || !PRIVATE_KEY || !TO_ADDRESSES.length || !AMOUNT || !BOT_TOKEN || !CHAT_ID) {
-  console.error("❌ Pastikan semua variabel di .env sudah terisi!");
+  console.error("❌ 𝙋𝙖𝙨𝙩𝙞𝙠𝙖𝙣 𝙨𝙚𝙢𝙪𝙖 𝙫𝙖𝙧𝙞𝙖𝙗𝙚𝙡 𝙙𝙞 .env 𝙨𝙪𝙙𝙖𝙝 𝙩𝙚𝙧𝙞𝙨𝙞!");
   process.exit(1);
 }
 
@@ -33,10 +33,10 @@ function sendTelegramMessage(message) {
           const json = JSON.parse(data);
           resolve(json.result);
         } catch {
-          reject("❌ Gagal parse response Telegram API");
+          reject("❌ 𝙂𝙖𝙜𝙖𝙡 𝙥𝙖𝙧𝙨𝙚 𝙧𝙚𝙨𝙥𝙤𝙣𝙨𝙚 𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢 API");
         }
       });
-    }).on("error", err => reject("❌ Gagal kirim ke Telegram: " + err.message));
+    }).on("error", err => reject("❌ 𝙂𝙖𝙜𝙖𝙡 𝙠𝙞𝙧𝙞𝙢 𝙠𝙚 𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢: " + err.message));
   });
 }
 
@@ -47,7 +47,7 @@ function updateTelegramMessage(message, messageId) {
     https.get(url, res => {
       res.on("data", () => {});
       res.on("end", () => resolve());
-    }).on("error", err => reject("❌ Gagal update pesan Telegram: " + err.message));
+    }).on("error", err => reject("❌ 𝙂𝙖𝙜𝙖𝙡 𝙪𝙥𝙙𝙖𝙩𝙚 𝙥𝙚𝙨𝙖𝙣 𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢: " + err.message));
   });
 }
 
@@ -57,7 +57,8 @@ async function sendTx(toAddress) {
   const fee = await provider.getFeeData();
 
   if (!fee.maxFeePerGas || !fee.maxPriorityFeePerGas) {
-    await sendTelegramMessage(`*𝙏𝙧𝙖𝙣𝙨𝙖𝙠𝙨𝙞 𝙂𝙖𝙜𝙖𝙡*\n𝙍𝙋𝘾 𝙩𝙞𝙙𝙖𝙠 𝙢𝙚𝙣𝙜𝙚𝙢𝙗𝙖𝙡𝙞𝙠𝙖𝙣 𝙙𝙖𝙩𝙖 𝙛𝙚𝙚 𝙮𝙖𝙣𝙜 𝙫𝙖𝙡𝙞𝙙.`);
+    await sendTelegramMessage(`*𝙏𝙧𝙖𝙣𝙨𝙖𝙠𝙨𝙞 𝙂𝙖𝙜𝙖𝙡*
+RPC 𝙩𝙞𝙙𝙖𝙠 𝙢𝙚𝙣𝙜𝙚𝙢𝙗𝙖𝙡𝙞𝙠𝙖𝙣 𝙛𝙚𝙚 𝙙𝙖𝙩𝙖 𝙮𝙖𝙣𝙜 𝙫𝙖𝙡𝙞𝙙.`);
     return;
   }
 
@@ -84,29 +85,39 @@ async function sendTx(toAddress) {
 
     try {
       const txResp = await wallet.sendTransaction(tx);
-      console.log(`🚀 ${label} dikirim: ${txResp.hash}`);
+      console.log(`🚀 ${label} 𝙙𝙞𝙠𝙞𝙧𝙞𝙢: ${txResp.hash}`);
 
       const sentMsg = await sendTelegramMessage(
-        `*${label}*\n\n` +
-        `𝙏𝙤        : \`${toAddress}\`\n` +
-        `𝘼𝙢𝙤𝙪𝙣𝙩    : \`${AMOUNT} ETH\`\n\n` +
+        `*${label}*
+
+` +
+        `𝙏𝙤 : \`${toAddress}\`
+` +
+        `𝘼𝙢𝙤𝙪𝙣𝙩 : \`${AMOUNT} 𝕋𝔼𝔸\`
+
+` +
         `𝙈𝙚𝙣𝙪𝙣𝙜𝙜𝙪 𝙠𝙤𝙣𝙛𝙞𝙧𝙢𝙖𝙨𝙞...`
       );
 
-      const messageId = sentMsg.message_id;
+      const messageId = sentMsg?.message_id;
+      if (!messageId) {
+        console.warn("⚠️ 𝙏𝙞𝙙𝙖𝙠 𝙢𝙚𝙣𝙙𝙖𝙥𝙖𝙩𝙠𝙖𝙣 message_id 𝙙𝙖𝙧𝙞 𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢!");
+      }
+
       const loadingChars = ["◐", "◑", "◒", "◓"];
       let i = 0;
       let stopped = false;
 
       const interval = setInterval(async () => {
-        if (stopped) return;
-        const anim = `*${label}*\n\n` +
-                     `𝙏𝙤        : \`${toAddress}\`\n` +
-                     `𝘼𝙢𝙤𝙪𝙣𝙩    : \`${AMOUNT} ETH\`\n\n` +
-                     `*𝙈𝙚𝙣𝙪𝙣𝙜𝙜𝙪 𝙠𝙤𝙣𝙛𝙞𝙧𝙢𝙖𝙨𝙞..* ${loadingChars[i]}`;
+        if (stopped || !messageId) return;
+        const anim = `*${label}*
+
+*𝙈𝙚𝙣𝙪𝙣𝙜𝙜𝙪 𝙠𝙤𝙣𝙛𝙞𝙧𝙢𝙖𝙨𝙞..* ${loadingChars[i]}`;
         try {
           await updateTelegramMessage(anim, messageId);
-        } catch {}
+        } catch (err) {
+          console.warn("⚠️ 𝙂𝙖𝙜𝙖𝙡 𝙪𝙥𝙙𝙖𝙩𝙚 𝙖𝙣𝙞𝙢𝙖𝙨𝙞 𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢:", err.message);
+        }
         i = (i + 1) % loadingChars.length;
       }, 500);
 
@@ -119,21 +130,37 @@ async function sendTx(toAddress) {
       stopped = true;
       success = true;
 
-      await updateTelegramMessage(
-        `*${label} 𝘽𝙚𝙧𝙝𝙖𝙨𝙞𝙡*\n\n` +
-        `𝙏𝙤        : \`${toAddress}\`\n` +
-        `𝘼𝙢𝙤𝙪𝙣𝙩    : \`${AMOUNT} ETH\`\n\n` +
-        `[𝙇𝙞𝙝𝙖𝙩 𝙙𝙞 𝙀𝙭𝙥𝙡𝙤𝙧𝙚𝙧](${EXPLORER_URL}/tx/${txResp.hash})`,
-        messageId
-      );
+      const successMsg =
+        `*${label} 𝘽𝙚𝙧𝙝𝙖𝙨𝙞𝙡*
 
-      console.log(`✅ ${label} dikonfirmasi`);
+` +
+        `𝙏𝙤 : \`${toAddress}\`
+` +
+        `𝘼𝙢𝙤𝙪𝙣𝙩 : \`${AMOUNT} 𝕋𝔼𝔸\`
+
+` +
+        `[𝙇𝙞𝙝𝙖𝙩 𝙙𝙞 𝙀𝙭𝙥𝙡𝙤𝙧𝙚𝙧](${EXPLORER_URL}/tx/${txResp.hash})`;
+
+      if (messageId) {
+        try {
+          await updateTelegramMessage(successMsg, messageId);
+        } catch (err) {
+          console.warn("⚠️ 𝙂𝙖𝙜𝙖𝙡 𝙪𝙥𝙙𝙖𝙩𝙚 𝙠𝙚 𝙨𝙩𝙖𝙩𝙪𝙨 𝙨𝙪𝙠𝙨𝙚𝙨:", err.message);
+          await sendTelegramMessage(successMsg);
+        }
+      } else {
+        await sendTelegramMessage(successMsg);
+      }
+
+      console.log(`✅ ${label} 𝙙𝙞𝙠𝙤𝙣𝙛𝙞𝙧𝙢𝙖𝙨𝙞`);
     } catch (err) {
       if (err.message.includes("Timeout konfirmasi")) {
-        console.warn(`⏱ ${label} timeout. Akan mencoba retry...`);
+        console.warn(`⏱ ${label} 𝙩𝙞𝙢𝙚𝙤𝙪𝙩. 𝘼𝙠𝙖𝙣 𝙢𝙚𝙣𝙘𝙤𝙗𝙖 𝙧𝙚𝙩𝙧𝙮...`);
       } else {
-        await sendTelegramMessage(`*${label} 𝙂𝙖𝙜𝙖𝙡*\n\
-\`\`\`\n${err.message || err}\n\`\`\``);
+        await sendTelegramMessage(`*${label} 𝙂𝙖𝙜𝙖𝙡*
+\`\`\`
+${err.message || err}
+\`\`\``);
         break;
       }
     }
@@ -146,7 +173,7 @@ async function sendTx(toAddress) {
 
   if (!success) {
     await sendTelegramMessage(`*𝙏𝙧𝙖𝙣𝙨𝙖𝙠𝙨𝙞 𝙠𝙚 ${toAddress} 𝙜𝙖𝙜𝙖𝙡 𝙨𝙚𝙩𝙚𝙡𝙖𝙝 ${MAX_RETRY} 𝙧𝙚𝙩𝙧𝙮.* ❌`);
-    console.log(`❌ Gagal setelah ${MAX_RETRY} attempt`);
+    console.log(`❌ 𝙂𝙖𝙜𝙖𝙡 𝙨𝙚𝙩𝙚𝙡𝙖𝙝 ${MAX_RETRY} 𝙖𝙩𝙩𝙚𝙢𝙥𝙩`);
     await new Promise(r => setTimeout(r, 60000));
   }
 }
@@ -157,11 +184,11 @@ async function loopTx() {
       try {
         await sendTx(address);
       } catch (e) {
-        console.error("❌ Gagal kirim TX:", e);
+        console.error("❌ 𝙂𝙖𝙜𝙖𝙡 𝙠𝙞𝙧𝙞𝙢 TX:", e);
       }
 
       const delay = (Math.floor(Math.random() * 3) + 1) * 60 * 1000;
-      console.log(`⏳ Delay ${(delay / 60000).toFixed(1)} menit...\n`);
+      console.log(`⏳ 𝘿𝙚𝙡𝙖𝙮 ${(delay / 60000).toFixed(1)} 𝙢𝙚𝙣𝙞𝙩...\n`);
       await new Promise(r => setTimeout(r, delay));
     }
   }
