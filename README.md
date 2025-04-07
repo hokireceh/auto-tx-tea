@@ -1,8 +1,3 @@
-Berikut adalah contoh `README.md` yang bisa kamu pakai untuk repositori GitHub dari script pengiriman ETH otomatis ini:
-
----
-
-```markdown
 # 🔁 Auto ETH Sender with Telegram Alerts
 
 Script Node.js untuk mengirim ETH ke daftar alamat secara otomatis dengan delay acak, sambil mengirim notifikasi ke Telegram saat transaksi berhasil atau gagal.
