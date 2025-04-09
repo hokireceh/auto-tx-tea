@@ -30,24 +30,28 @@ Script Node.js untuk mengirim ETH ke daftar alamat secara otomatis dengan delay 
 
 ## 📄 Contoh `.env`
 
-```env
-# RPC URL jaringan (contoh: Sepolia, atau testnet lain)
-RPC_URL=https://rpc.sepolia.org
+```.env
+# RPC endpoint dari jaringan testnet Tea Sepolia
+RPC_URL=https://tea-sepolia.g.alchemy.com/v2/your-alchemy-api-key
 
-# Private key dari wallet pengirim
-PRIVATE_KEY=0x123...
+# Private key wallet pengirim
+PRIVATE_KEY=0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
 
-# Daftar alamat tujuan (dipisah dengan koma)
-TO_ADDRESSES=0xabc...,0xdef...,0xghi...
+# Daftar wallet tujuan (dipisah koma, tanpa spasi)
+TO_ADDRESSES=0xAddress1,0xAddress2,0xAddress3
 
-# Jumlah ETH yang dikirim ke tiap alamat
-AMOUNT=0.001
+# Jumlah TEA yang ingin dikirim per wallet (dalam satuan ETH, misalnya 0.01)
+AMOUNT=0.01
 
-# Telegram Bot Token
-BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
+# Token Bot Telegram
+BOT_TOKEN=123456789:AAExampleTokenTelegramABCDEF
 
-# Chat ID Telegram tujuan
+# Chat ID Telegram kamu (pastikan bot sudah bisa kirim ke sini)
 CHAT_ID=123456789
+
+# (Opsional) URL explorer untuk link TX
+EXPLORER_URL=https://sepolia.tea.xyz
+
 ```
 
 ---
