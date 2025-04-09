@@ -11,6 +11,9 @@ Script Node.js untuk mengirim ETH ke daftar alamat secara otomatis dengan delay 
 
 ---
 
+### Donasi Sini COK Jangan Pelit Jadi, Donasi Ga Bikin Lo Miskin Hahaha ...
+- Trakteer : [https://trakteer.id/garapanairdrop/tip](https://trakteer.id/garapanairdrop/tip)
+
 ## 🛠️ Instalasi
 
 1. **Clone repo ini:**
