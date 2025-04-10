@@ -73,7 +73,7 @@ EXPLORER_URL=https://sepolia.tea.xyz
 ## 📦 Jalankan Script
 
 ```bash
-node sendTx.js
+runtea
 ```
 
 ---
