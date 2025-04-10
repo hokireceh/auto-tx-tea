@@ -1,16 +1,23 @@
 {
-  "name": "tea",
+  "name": "tea-tx-sender",
   "version": "1.0.0",
-  "main": "sendTx.js",
+  "description": "Auto TEA TX Sender with Telegram Notifications",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "ethereum",
+    "ethers",
+    "telegram",
+    "transaction",
+    "sender"
+  ],
+  "author": "HokiReceh",
+  "license": "MIT",
   "dependencies": {
-    "dotenv": "^16.4.7",
-    "ethers": "^6.13.5"
+    "chalk": "^5.4.1",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.10.0"
   }
 }
